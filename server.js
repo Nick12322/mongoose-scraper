@@ -55,12 +55,19 @@ app.get("/scrape", function (req, res) {
         });
     });
 
-    res.send("Scrape Complete");
+    res.send("Scrape Complete, click <a href='/' <p> here</a> to go home and see what we scraped </p>");
   });
 });
 
 app.get("/articles", function (req, res) {
-  db.Article.find()
+  db.Article.find({saved: {$ne: true}})
+    .then(function (data) {
+      res.json(data);
+    })
+});
+
+app.get("/articles/saved", function (req, res) {
+  db.Article.find({saved: {$ne: false}})
     .then(function (data) {
       res.json(data);
     })
@@ -72,30 +79,33 @@ app.get("/articles/:id", function (req, res) {
   }).then(function (data) {
     res.json(data);
   })
-  
+
 });
 
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "home.html"));
+  res.sendFile(path.join(__dirname, "home.html"));
 });
 
-app.post("/articles/:id", function (req, res) {
-  db.Note.create(req.body)
-    .then(function (dbNote) {
+app.get("/saved", function (req, res) {
+  res.sendFile(path.join(__dirname, "saved.html"));
+});
 
-      return db.Article.findByIdAndUpdate(req.params.id, {
-        $set: {
-          note: dbNote._id
-        }
-      }, {
-          new: true
-        });
-    })
-    .then(function (dbArticle) {
-      res.json(dbArticle);
-    })
-    .catch(function (err) {
-      res.json(err)
+
+app.put("/articles/:id", function (req, res) {
+  db.Article.findByIdAndUpdate(req.params.id, { saved: true }, { new: true })
+    .then(function (dbMovie) {
+      res.json(dbMovie);
+    }).catch(function (err) {
+      res.status(400).send(err);
+    });
+});
+
+app.put("/articles/unsave/:id", function (req, res) {
+  db.Article.findByIdAndUpdate(req.params.id, { saved: false }, { new: true })
+    .then(function (dbMovie) {
+      res.json(dbMovie);
+    }).catch(function (err) {
+      res.status(400).send(err);
     });
 });
 
