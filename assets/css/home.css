@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 #cardsHere {
     display: grid;
     justify-items: center;
     grid-template-columns: auto auto auto;
     grid-row-gap: 5vh;
 }
-=======
-
->>>>>>> e43efd1829ede5f517a3cb56da565f12b8fb60ab

@@ -11,7 +11,7 @@
         crossorigin="anonymous">
     <!-- <link rel="stylesheet" type="text/css" href="assets/css/home.css"> -->
 
-    <title>Hello, world!</title>
+    <title>Saved Articles</title>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,7 +38,7 @@
 
 <body>
     
-    <div id="cardsHere"></div>
+    <div id="cardsHere" class="row"></div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -58,7 +58,7 @@
             }).then(function (data) {
                 for (var i = 0; i <= data.length; i++) {
                     console.log(data[i]);
-                    $("#cardsHere").append("<div class='card text-center'> <div class='card-body'><a href='" + data[i].link + "'<h2 class='card-title' id='articleTitle'>" + data[i].title + "</h2></a><br><br><button type='button' class='btn btn-primary' style='width:45%;' id='" + data[i]._id + "'>UnSave Article</button></div>");
+                    $("#cardsHere").append("<div class='card text-center col-md-6'> <div class='card-body'><a href='" + data[i].link + "'<h2 class='card-title' id='articleTitle'>" + data[i].title + "</h2></a><br><br><button type='button' class='btn btn-primary' style='width:45%;' id='" + data[i]._id + "'>UnSave Article</button></div>");
                 };
             });
         });
