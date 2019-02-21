@@ -1,0 +1,6 @@
+#cardsHere {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 5vh;
+}
